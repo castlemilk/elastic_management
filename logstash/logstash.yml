@@ -1,0 +1,6 @@
+pipeline.workers: 2
+pipeline.output.workers: 2
+xpack.monitoring.elasticsearch.url: "http://elasticsearch:9200" 
+xpack.monitoring.elasticsearch.username: "logstash_system" 
+xpack.monitoring.elasticsearch.password: "changeme"
+  

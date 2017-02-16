@@ -1,0 +1,26 @@
+version: '3'
+services:
+  elasticsearch:
+    command: elasticsearch -Enetwork.host=0.0.0.0 -Ediscovery.zen.ping.unicast.hosts=elasticsearch
+    environment:
+      cluster-name: "docker-cluster"
+      bootstrap.memory_lock: "true"
+      ES_JAVA_OPTS: -Xms4g -Xmx4g
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.2.0
+    ulimits:
+      memlock: -1
+      nofile:
+        hard: 65536
+        soft: 65536
+      nproc: 65538
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+      - /etc/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    networks:
+      - elasticsearch-backend
+volumes:
+  esdata:
+    driver: local
+networks:
+  elasticsearch-backend:
+    driver: overlay

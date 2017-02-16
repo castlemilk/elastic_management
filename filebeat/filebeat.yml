@@ -1,0 +1,303 @@
+###################### Filebeat Configuration - Openstack logs #########################
+#=========================== Filebeat prospectors =============================
+filebeat.prospectors:
+- input_type: log
+  document_type: nova 
+  paths:
+    - /var/log/nova/nova-api.log
+  #exclude_lines: ["^DBG"]
+  #include_lines: ["^ERR", "^WARN"]
+  exclude_files: [".gz$"]
+  ### Multiline options
+  multiline.pattern: "^%{TIMESTAMP_ISO8601}%{SPACE}%{NUMBER}?%{SPACE}?TRACE"
+  multiline.negate: false
+  multiline.match: after
+  tags: ["nova", "oslofmt", "novaapi" ]
+- input_type: log
+  document_type: nova 
+  paths:
+    - /var/log/nova/nova-conductor.log
+  #exclude_lines: ["^DBG"]
+  #include_lines: ["^ERR", "^WARN"]
+  exclude_files: [".gz$"]
+  ### Multiline options
+  multiline.pattern: "^%{TIMESTAMP_ISO8601}%{SPACE}%{NUMBER}?%{SPACE}?TRACE"
+  multiline.negate: false
+  multiline.match: after
+  tags: ["nova", "oslofmt", "novaconductor" ]
+- input_type: log
+  document_type: nova 
+  paths:
+    - /var/log/nova/nova-consoleauth.log
+  #exclude_lines: ["^DBG"]
+  #include_lines: ["^ERR", "^WARN"]
+  exclude_files: [".gz$"]
+  ### Multiline options
+  multiline.pattern: "^%{TIMESTAMP_ISO8601}%{SPACE}%{NUMBER}?%{SPACE}?TRACE"
+  multiline.negate: false
+  multiline.match: after
+  tags: ["nova", "oslofmt", "novaconsoleauth" ]
+- input_type: log
+  document_type: nova 
+  paths:
+    - /var/log/nova/nova-novncproxy.log
+  #exclude_lines: ["^DBG"]
+  #include_lines: ["^ERR", "^WARN"]
+  exclude_files: [".gz$"]
+  ### Multiline options
+  multiline.pattern: "^%{TIMESTAMP_ISO8601}%{SPACE}%{NUMBER}?%{SPACE}?TRACE"
+  multiline.negate: false
+  multiline.match: after
+  tags: ["nova", "oslofmt", "novncproxy" ]
+- input_type: log
+  document_type: nova 
+  paths:
+    - /var/log/nova/nova-scheduler.log
+  #exclude_lines: ["^DBG"]
+  #include_lines: ["^ERR", "^WARN"]
+  exclude_files: [".gz$"]
+  ### Multiline options
+  multiline.pattern: "^%{TIMESTAMP_ISO8601}%{SPACE}%{NUMBER}?%{SPACE}?TRACE"
+  multiline.negate: false
+  multiline.match: after
+  tags: ["nova", "oslofmt", "novascheduler" ]
+- input_type: log
+  document_type: cinder 
+  paths:
+    - /var/log/cinder/scheduler.log
+  #exclude_lines: ["^DBG"]
+  #include_lines: ["^ERR", "^WARN"]
+  exclude_files: [".gz$"]
+  ### Multiline options
+  # The regexp Pattern that has to be matched. The example pattern matches all lines starting with [
+  multiline.pattern: "^%{TIMESTAMP_ISO8601}%{SPACE}%{NUMBER}?%{SPACE}?TRACE"
+  multiline.negate: false
+  multiline.match: after
+  tags: ["cinder", "oslofmt", "cinderschedule" ]
+- input_type: log
+  document_type: cinder 
+  paths:
+    - /var/log/cinder/api.log
+  #exclude_lines: ["^DBG"]
+  #include_lines: ["^ERR", "^WARN"]
+  exclude_files: [".gz$"]
+  ### Multiline options
+  # The regexp Pattern that has to be matched. The example pattern matches all lines starting with [
+  multiline.pattern: "^%{TIMESTAMP_ISO8601}%{SPACE}%{NUMBER}?%{SPACE}?TRACE"
+  multiline.negate: false
+  multiline.match: after
+  tags: ["cinder", "oslofmt", "cinderapi" ]
+- input_type: log
+  document_type: glance
+  paths:
+    - /var/log/glance/glance-registry.log
+  #exclude_lines: ["^DBG"]
+  #include_lines: ["^ERR", "^WARN"]
+  exclude_files: [".gz$"]
+  tags: ["glance", "oslofmt", "glanceregistry"]
+  ### Multiline options
+  # The regexp Pattern that has to be matched. The example pattern matches all lines starting with [
+  multiline.pattern: "^%{TIMESTAMP_ISO8601}%{SPACE}%{NUMBER}?%{SPACE}?TRACE"
+  multiline.negate: false
+  multiline.match: after
+- input_type: log
+  document_type: glance
+  paths:
+    - /var/log/glance/glance-api.log
+  #exclude_lines: ["^DBG"]
+  #include_lines: ["^ERR", "^WARN"]
+  exclude_files: [".gz$"]
+  tags: ["glance", "oslofmt", "glanceapi"]
+  ### Multiline options
+  # The regexp Pattern that has to be matched. The example pattern matches all lines starting with [
+  multiline.pattern: "^%{TIMESTAMP_ISO8601}%{SPACE}%{NUMBER}?%{SPACE}?TRACE"
+  multiline.negate: false
+  multiline.match: after
+- input_type: log
+  document_type: neutron
+  paths:
+    - /var/log/neutron/neutron-server.log
+  #exclude_lines: ["^DBG"]
+  #include_lines: ["^ERR", "^WARN"]
+  exclude_files: [".gz$"]
+  tags: ["neutron", "oslofmt", "neutronapi"]
+  ### Multiline options
+  # The regexp Pattern that has to be matched. The example pattern matches all lines starting with [
+  multiline.pattern: "^%{TIMESTAMP_ISO8601}%{SPACE}%{NUMBER}?%{SPACE}?TRACE"
+  multiline.negate: false
+  multiline.match: after
+- input_type: log
+  document_type: neutron
+  paths:
+    - /var/log/neutron/dhcp-agent.log
+  #exclude_lines: ["^DBG"]
+  #include_lines: ["^ERR", "^WARN"]
+  exclude_files: [".gz$"]
+  tags: ["neutron", "oslofmt", "dhcp"]
+  ### Multiline options
+  # The regexp Pattern that has to be matched. The example pattern matches all lines starting with [
+  multiline.pattern: "^%{TIMESTAMP_ISO8601}%{SPACE}%{NUMBER}?%{SPACE}?TRACE"
+  multiline.negate: false
+  multiline.match: after
+- input_type: log
+  document_type: neutron
+  paths:
+    - /var/log/neutron/linuxbridge-agent.log
+  #exclude_lines: ["^DBG"]
+  #include_lines: ["^ERR", "^WARN"]
+  exclude_files: [".gz$"]
+  tags: ["neutron", "oslofmt", "linuxbridge"]
+  ### Multiline options
+  # The regexp Pattern that has to be matched. The example pattern matches all lines starting with [
+  multiline.pattern: "^%{TIMESTAMP_ISO8601}%{SPACE}%{NUMBER}?%{SPACE}?TRACE"
+  multiline.negate: false
+  multiline.match: after
+- input_type: log
+  document_type: neutron
+  paths:
+    - /var/log/neutron/metadata-agent.log
+  #exclude_lines: ["^DBG"]
+  #include_lines: ["^ERR", "^WARN"]
+  exclude_files: [".gz$"]
+  tags: ["neutron", "oslofmt", "metadata"]
+  ### Multiline options
+  # The regexp Pattern that has to be matched. The example pattern matches all lines starting with [
+  multiline.pattern: "^%{TIMESTAMP_ISO8601}%{SPACE}%{NUMBER}?%{SPACE}?TRACE"
+  multiline.negate: false
+  multiline.match: after
+- input_type: log
+  document_type: neutron
+  paths:
+    - /var/log/neutron/neutron-ns-metadata-proxy*.log
+  #exclude_lines: ["^DBG"]
+  #include_lines: ["^ERR", "^WARN"]
+  exclude_files: [".gz$"]
+  tags: ["neutron", "oslofmt", "metadata_proxy"]
+  ### Multiline options
+  # The regexp Pattern that has to be matched. The example pattern matches all lines starting with [
+  multiline.pattern: "^%{TIMESTAMP_ISO8601}%{SPACE}%{NUMBER}?%{SPACE}?TRACE"
+  multiline.negate: false
+  multiline.match: after
+- input_type: log
+  document_type: keystone
+  paths:
+    - /var/log/keystone/keystone.log
+  #exclude_lines: ["^DBG"]
+  #include_lines: ["^ERR", "^WARN"]
+  exclude_files: [".gz$"]
+  tags: ["keystone", "oslofmt", "keystoneapi"]
+  ### Multiline options
+  # The regexp Pattern that has to be matched. The example pattern matches all lines starting with [
+  multiline.pattern: "^%{TIMESTAMP_ISO8601}%{SPACE}%{NUMBER}?%{SPACE}?TRACE"
+  multiline.negate: false
+  multiline.match: after
+- input_type: log
+  document_type: keystone
+  paths:
+    - /var/log/httpd/keystone*.log
+  #exclude_lines: ["^DBG"]
+  #include_lines: ["^ERR", "^WARN"]
+  exclude_files: [".gz$"]
+  tags: ["keystone", "oslofmt", "keystoneapi"]
+  ### Multiline options
+  # The regexp Pattern that has to be matched. The example pattern matches all lines starting with [
+  multiline.pattern: "^%{TIMESTAMP_ISO8601}%{SPACE}%{NUMBER}?%{SPACE}?TRACE"
+  multiline.negate: false
+  multiline.match: after
+- input_type: log
+  document_type: syslog
+  paths:
+    - /var/log/messages
+  #exclude_lines: ["^DBG"]
+  #include_lines: ["^ERR", "^WARN"]
+  exclude_files: [".gz$"]
+  tags: ["syslog"]
+  ### Multiline options
+  # The regexp Pattern that has to be matched. The example pattern matches all lines starting with [
+- input_type: log
+  document_type: secure
+  paths:
+    - /var/log/secure
+  exclude_lines: ["^DBG"]
+  #include_lines: ["^ERR", "^WARN"]
+  exclude_files: [".gz$"]
+  tags: ["syslog"]
+- input_type: log
+  document_type: horizon
+  paths:
+    - /var/log/httpd/access_log.log
+  #exclude_lines: ["^DBG"]
+  #include_lines: ["^ERR", "^WARN"]
+  exclude_files: [".gz$"]
+  tags: [ "horizon" ]
+- input_type: log
+  document_type: horizon
+  paths:
+    - /var/log/httpd/access_log.log
+  #exclude_lines: ["^DBG"]
+  #include_lines: ["^ERR", "^WARN"]
+  exclude_files: [".gz$"]
+  tags: [ "horizon" ]
+- input_type: log
+  document_type: horizon
+  paths:
+    - /var/log/httpd/error_log.log
+  #exclude_lines: ["^DBG"]
+  #include_lines: ["^ERR", "^WARN"]
+  exclude_files: [".gz$"]
+  tags: [ "horizon" ]
+#================================ General =====================================
+
+# The name of the shipper that publishes the network data. It can be used to group
+# all the transactions sent by a single shipper in the web interface.
+#name:
+
+# The tags of the shipper are included in their own field with each
+# transaction published.
+#tags: ["service-X", "web-tier"]
+
+# Optional fields that you can specify to add additional information to the
+# output.
+fields:
+  host: controller1
+
+#================================ Outputs =====================================
+
+# Configure what outputs to use when sending the data collected by the beat.
+# Multiple outputs may be used.
+
+#-------------------------- Elasticsearch output ------------------------------
+#output.elasticsearch:
+  # Array of hosts to connect to.
+  #hosts: ["controller1:9200","controller2:9200", "controller3:9200"]
+
+  # Optional protocol and basic auth credentials.
+  #protocol: "https"
+  #username: "elastic"
+  #password: "changeme"
+
+#----------------------------- Logstash output --------------------------------
+output.logstash:
+  # The Logstash hosts
+  hosts: ["controller1:12201", "controller2:12201", "controller3:12201"]
+
+  # Optional SSL. By default is off.
+  # List of root certificates for HTTPS server verifications
+  #ssl.certificate_authorities: ["/etc/pki/root/ca.pem"]
+
+  # Certificate for SSL client authentication
+  #ssl.certificate: "/etc/pki/client/cert.pem"
+
+  # Client Certificate Key
+  #ssl.key: "/etc/pki/client/cert.key"
+
+#================================ Logging =====================================
+
+# Sets log level. The default log level is info.
+# Available log levels are: critical, error, warning, info, debug
+#logging.level: debug
+
+# At debug level, you can selectively enable logging only for some components.
+# To enable all selectors use ["*"]. Examples of other selectors are "beat",
+# "publish", "service".
+#logging.selectors: ["*"]
